@@ -1,0 +1,20 @@
+.add-list {
+    text-align: center;
+    width: 200px;
+}
+
+.add-list input[type="text"] {
+    width: calc(100% - 20px - 6px);
+    margin: 3px 0px;
+}
+
+.add-list button {
+    width: 100%;
+    max-width: 150px;
+}
+
+.add-list button:disabled {
+    background-color: lightgrey;
+    border-color: grey;
+    color: grey;
+}

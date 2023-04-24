@@ -1,0 +1,27 @@
+.lists-list-block:nth-of-type(1) {
+    margin-top: 15px;
+}
+
+.lists-list-block {
+    margin: 9px 13px;
+    padding: 15px;
+}
+
+.lists-list-block p {
+    margin: 0;
+    display: inline-block;
+}
+
+.lists-list-block p:not(.lists-list-block > p:nth-of-type(1)) {
+    font-size: 0.64rem;
+    color: var(--beaver);
+}
+
+.lists-list-block .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.lists-list-block .grid-2 div:nth-of-type(2) {
+    text-align: right;
+}

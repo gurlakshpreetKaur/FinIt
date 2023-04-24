@@ -1,0 +1,34 @@
+body,
+html {
+  background-color: var(--pearl);
+  height: 465px;
+  position: relative;
+  width: 300px;
+  /* padding: 0px 10px 0px; */
+}
+
+body {
+  margin: 0;
+}
+
+:root {
+  background-color: white;
+  border-radius: 8px;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-text {
+  bottom: 10px;
+  font-family: var(--handwriting);
+  font-size: 0.8rem;
+  left: 50%;
+  margin: 0;
+  max-width: 200px;
+  padding: 2px 30px;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  width: max-content;
+  word-wrap: break-word;
+}

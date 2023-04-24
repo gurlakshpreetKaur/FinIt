@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&display=swap');
+
+:root {
+    --pearl: #F0EBE3;
+    --weird-milk: #E4DCCF;
+    --beaver: #A9907E;
+    --wheat: #F3DEBA;
+    --pretty-green: #7D9D9C;
+    --pretty-dark-green: #576F72;
+    --walnut-brown: #675D50;
+    --handwriting: 'Gaegu', cursive;
+    /* --minimalist-font: 'Jost', sans-serif; */
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+p {
+    font-family: var(--handwriting);
+}
+
+.less-rounded {
+    border-radius: 4px;
+}
+
+.rounded {
+    border-radius: 8px;
+}
+
+.aa-rounded {
+    border-radius: 12px;
+}
+
+.very-rounded {
+    border-radius: 16px;
+}
+
+.centered-horizontal {
+    position: absolute;
+    top: 50%;
+    /* left: 50%; */
+    transform: translateY(-50%);
+}
+
+.white-color {
+    color: white;
+}
+
+.thin {
+    font-weight: 300;
+}
+
+.reg {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 900;
+}
+
+button {
+    background-color: var(--pretty-dark-green);
+    font-family: var(--handwriting);
+    font-weight: 600;
+    border: 0;
+    outline: 0;
+    border-radius: 8px;
+    padding: 7px 13px;
+    margin: 3px 0px;
+}
+
+button.small {
+    padding: 4px 8px;
+}
+
+.walnut-brown-border {
+    border-color: var(--walnut-brown);
+}
+
+.beaver-border {
+    border-color: var(--beaver);
+}
+
+.wheat-border {
+    border-color: var(--wheat);
+}
+
+.pretty-green-border {
+    border-color: var(--pretty-green);
+}
+
+.pretty-dark-green-border {
+    border-color: var(--pretty-dark-green);
+}
+
+.thin-border {
+    border-width: 2px;
+}
+
+.mid-border {
+    border-width: 3px;
+}
+
+.thick-border {
+    border-width: 4px;
+}
+
+.solid-border {
+    border-style: solid;
+}
+
+.dashed-border {
+    border-style: dashed;
+}
+
+.transparent-bg {
+    background-color: transparent !important;
+}
+
+.semi-transparent-white-bg {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.pearl-bg {
+    background-color: var(--pearl) !important;
+}
+
+.weird-milk-bg {
+    background-color: var(--weird-milk) !important;
+}
+
+.beaver-bg {
+    background-color: var(--beaver);
+}
+
+.wheat-bg {
+    background-color: var(--wheat);
+}
+
+.pretty-green-bg {
+    background-color: var(--pretty-dark-green);
+}
+
+.pretty-dark-green-bg {
+    background-color: var(--pretty-dark-green);
+}
+
+.walnut-brown-bg {
+    background-color: var(--walnut-brown);
+}
+
+input {
+    border-radius: 20px;
+    outline: 0;
+    border: 0;
+    padding: 5px 10px;
+    background-color: var(--wheat);
+    border: var(--beaver) solid 3px;
+    font-family: var(--handwriting);
+}
