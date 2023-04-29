@@ -1,0 +1,30 @@
+.view-list {
+    padding: 15px;
+    overflow-y: auto;
+    max-height: calc(465px - 50px - 30px);
+    /* background-color: var(--wheat); */
+}
+
+.view-list input:nth-of-type(1) {
+    margin-bottom: 7.5px;
+    padding: 1px 13px 6px;
+    width: 190px;
+}
+
+.view-list span:not(.not-pointy) {
+    cursor: pointer;
+}
+
+.view-list hr {
+    border-color: var(--beaver);
+    border-width: 1px;
+    margin-bottom: 34px;
+}
+
+.view-list .list-item:nth-of-type(1) {
+    margin-top: 5px;
+}
+
+.view-list .list-item:hover {
+    background-color: var(--wheat);
+}

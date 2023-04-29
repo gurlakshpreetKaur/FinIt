@@ -8,6 +8,7 @@ import SignIn from "../Auxiliaries/SignIn/SignIn";
 import NothingHere from "../Auxiliaries/NothingHere/NothingHere";
 import AddList from "../Sections/AddList/AddList";
 import ListsList from "../Sections/ListsList/ListsList";
+import ViewList from "../Sections/ViewList/ViewList";
 
 const NavigationContext = createContext<any>({});
 const BottomContext = createContext<Function>(() => { });
@@ -15,7 +16,8 @@ const BottomContext = createContext<Function>(() => { });
 const App: FC = (): JSX.Element => {
   const [currentUser] = useAuthState(auth);
   const [addListButtonClassList, setAddListButtonClassList] = useState("small");
-  const [currentPage, setCurrentPage] = useState<"main" | "add-list">("main");
+  const [currentPage, setCurrentPage] = useState<["main"] | ["add-list"] | ["view-list", string]>(["main"]);
+  const [pageTitle, setPageTitle] = useState<string>("FinIt");
 
   const [bottomText, setBottomText] = useState<string>("");
 
@@ -23,21 +25,28 @@ const App: FC = (): JSX.Element => {
     console.log(bottomText);
   }, [bottomText]);
 
+  useEffect(() => {
+    setAddListButtonClassList(currentPage[0] === "main" ? "small" : "small walnut-brown-bg");
+  }, [currentPage])
+
 
   const handleNavigation = (): void => {
-    const toNavigateTo = currentPage === "main" ? "add-list" : "main";
-    setCurrentPage(toNavigateTo);
-    setAddListButtonClassList(toNavigateTo === "main" ? "small" : "small walnut-brown-bg");
+    const toNavigateTo = currentPage[0] === "main" ? "add-list" : "main";
+    setCurrentPage([toNavigateTo]);
+    console.log(toNavigateTo);
+    if (toNavigateTo === "main") setPageTitle("FinIt");
     setBottomText("");
   }
 
   return (
     <BottomContext.Provider value={setBottomText}>
-      <NavigationContext.Provider value={{ handleNavigation, addListButtonClassList, currentPage }}>
+      <NavigationContext.Provider value={{ handleNavigation, addListButtonClassList, currentPage, setCurrentPage, setPageTitle, pageTitle }}>
+
         <Header />
+
+        {currentPage[0] === "main" ? (currentUser ? <ListsList /> : <SignIn />) : currentPage[0] === "add-list" ? <AddList /> : <ViewList id={currentPage[1]} />}
+        <p className="bottom-text">{bottomText}</p>
       </NavigationContext.Provider>
-      {currentPage === "main" ? (currentUser ? <ListsList /> : <SignIn />) : <AddList />}
-      <p className="bottom-text">{bottomText}</p>
       {/* <ListsList /> */}
     </BottomContext.Provider>
   );

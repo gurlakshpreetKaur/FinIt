@@ -39,20 +39,23 @@ const useDocumentData = <T = {}>(reference: DocumentReference): [T, {}] => {
             setError({ code: "list-doesnt-exist", message: "No lists found with the given reference!" });
             return;
         }
+        if (JSON.stringify({ id: list.id, ...list.data() }) === JSON.stringify(data)) {
+            return;
+        }
         setData({ id: list.id, ...list.data() });
     });
     return [data as T, error];
 }
 
-const useDocumentsData = (query: Query<DocumentData>): [Array<{}>, {}] => {
-    const [data, setData] = useState([{}]);
+const useDocumentsData = <T>(query: Query<DocumentData>): [Array<T>, {}] => {
+    const [data, setData] = useState<T[]>([]);
     const [error, setError] = useState({});
     onSnapshot(query, (lists) => {
         if (lists.empty) {
             setError({ code: "no-lists-found", message: "No lists found that match the query." });
             return;
         }
-        const newData = lists.docs.map(item => ({ id: item.id, ...item.data() }));
+        const newData = lists.docs.map(item => ({ id: item.id, ...item.data() } as T));
         setData(newData);
     });
     return [data, error];

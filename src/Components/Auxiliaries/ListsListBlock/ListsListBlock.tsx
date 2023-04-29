@@ -1,21 +1,24 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useContext } from "react";
 import "./ListsListBlock.css";
 import { db, useDocumentData } from "../../../firebase-config";
 import { doc } from "firebase/firestore";
 import { listDocument } from "../../../interfacesAndUtil";
+import { NavigationContext } from "../../App/App";
 
 interface ListsListBlockProps {
     id: string
 }
 
 function ListsListBlock(props: ListsListBlockProps): JSX.Element {
+    // console.log(NavigationContext.Consumer);
+    const { setCurrentPage } = useContext(NavigationContext);
 
     const [listData, listDataError] = useDocumentData<listDocument>(doc(db, "lists", props.id));
-    const completedTasks = (listData.tasks ? (listData.tasks.length > 0 ? listData.tasks.filter(item => item.finished).length : "-") : "-") as unknown as string;
-    const totalTasks = (listData.tasks ? (listData.tasks.length > 0 ? listData.tasks.length : "-") : "-") as unknown as string;
+    const completedTasks = (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).map(item => listData.tasks[item]).filter(item => item.finished).length : "-") : "-") as unknown as string;
+    const totalTasks = (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).length : "-") : "-") as unknown as string;
     const displayTasksCompleted = completedTasks + " / " + totalTasks;
-    return (listData.tasks && <div className="lists-list-block semi-transparent-white-bg rounded">
-        <p title={listData.title}>{listData.title}</p>
+    return (listData.tasks && <div className="lists-list-block semi-transparent-white-bg rounded" onClick={() => setCurrentPage(["view-list", props.id])}>
+        <h2 title={listData.title}>{listData.title}</h2>
         <div className="grid-2">
 
             <div>

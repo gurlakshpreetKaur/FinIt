@@ -89,7 +89,7 @@ const AddList: FC = (): JSX.Element => {
                 createdOn: date.format(now, "DD/MM/YYYY"),
                 ...(password.length > 0 && { listKey: password }), //conditionally adding list key if user has entered a list key
                 ownedBy: (currentUser?.email)!,
-                tasks: [],
+                tasks: {},
                 title: titleOrCode,
                 usedBy: [currentUser?.email!],
             };

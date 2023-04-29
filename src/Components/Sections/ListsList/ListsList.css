@@ -1,3 +1,13 @@
 .lists-list {
     overflow-y: auto;
+    max-height: calc(465px - 50px);
+}
+
+.lists-list::-webkit-scrollbar {
+    background-color: var(--weird-milk);
+    width: 10px;
+}
+
+.lists-list::-webkit-scrollbar-thumb {
+    background-color: var(--pretty-green);
 }

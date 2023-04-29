@@ -51,6 +51,18 @@ p {
     color: white;
 }
 
+.pretty-dark-green-color {
+    color: var(--pretty-dark-green);
+}
+
+.pretty-green-color {
+    color: var(--pretty-green);
+}
+
+.center-align {
+    text-align: center;
+}
+
 .thin {
     font-weight: 300;
 }

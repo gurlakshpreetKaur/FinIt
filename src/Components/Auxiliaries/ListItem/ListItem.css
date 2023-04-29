@@ -1,0 +1,62 @@
+.list-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.list-item p {
+    display: inline-block;
+    padding: 0px;
+    margin: 2px 6px;
+    color: var(--walnut-brown);
+    max-width: calc(300px - 80px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+}
+
+.list-item:hover p {
+    width: calc(360px - 170px);
+}
+
+.list-item input[type="checkbox"] {
+    background-color: var(--beaver);
+    margin: 0;
+}
+
+.list-item:nth-of-type(1) {
+    margin-top: 15px;
+}
+
+.list-item p.done-task {
+    text-decoration: line-through;
+    font-style: italic;
+    color: var(--beaver);
+}
+
+.show-on-hover {
+    display: none;
+}
+
+.list-item:hover .show-on-hover {
+    display: inline-block;
+}
+
+input.invisible {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    margin: 0px 5px;
+    font-size: 1rem;
+    width: 190px;
+    color: var(--walnut-brown);
+    border-bottom: 1px var(--pretty-green) solid;
+    padding: 2px 0px;
+
+}
+
+input.invisible:focus {
+    border-bottom: 1px var(--walnut-brown) solid;
+}
