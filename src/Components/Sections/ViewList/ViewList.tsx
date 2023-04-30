@@ -40,11 +40,13 @@ function ViewList(props: ViewListProps) {
 
     return (<section className="view-list">
 
-        <span className="not-pointy">🐨</span>
-        <input className="invisible" placeholder="Add task..." value={taskInput} onChange={(change) => setTaskInput(change.target.value)} /><span onClick={async () => {
-            await updateDoc(doc(db, "lists", props.id), { ["tasks." + customAlphabet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 20)()]: { task: taskInput.trim(), finished: false, createdAt: new Date().getTime() } });
-            setTaskInput("");
-        }}>✅</span>
+        {/* <span className="not-pointy">🐨</span> */}
+        <span className="not-pointy">
+            <input className="invisible" placeholder="Add task..." value={taskInput} onChange={(change) => setTaskInput(change.target.value)} /><span onClick={async () => {
+                await updateDoc(doc(db, "lists", props.id), { ["tasks." + customAlphabet("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 20)()]: { task: taskInput.trim(), finished: false, createdAt: new Date().getTime() } });
+                setTaskInput("");
+            }}>✅</span>
+        </span>
 
         {listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).sort(sortingSystem).map((item) => <ListItem task={listData.tasks[item]} docID={props.id} taskID={item} key={props.id + item} />) : <NothingHere />) : <NothingHere />}
     </section>);

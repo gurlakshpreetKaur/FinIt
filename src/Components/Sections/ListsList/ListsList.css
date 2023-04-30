@@ -1,6 +1,7 @@
 .lists-list {
     overflow-y: auto;
     max-height: calc(465px - 50px);
+    margin-top: 5.5px;
 }
 
 .lists-list::-webkit-scrollbar {
