@@ -1,9 +1,11 @@
 import React, { FC, useState, useContext, useEffect } from "react";
 import "./ListsListBlock.css";
-import { db, useDocumentData } from "../../../firebase-config";
+import { db } from "../../../firebase-config";
 import { doc, updateDoc } from "firebase/firestore";
 import { listDocument } from "../../../interfacesAndUtil";
 import { NavigationContext } from "../../App/App";
+import { BottomContext } from "../../App/App";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 import Modal from "../Modal/Modal";
 
 interface ListsListBlockProps {
@@ -13,8 +15,9 @@ interface ListsListBlockProps {
 function ListsListBlock(props: ListsListBlockProps): JSX.Element {
     // console.log(NavigationContext.Consumer);
     const { setCurrentPage } = useContext(NavigationContext);
+    const setBottomText = useContext(BottomContext);
 
-    const [listData, listDataError] = useDocumentData<listDocument>(doc(db, "lists", props.id));
+    const listData = useDocumentData(doc(db, "lists", props.id))[0] as listDocument;
 
     const [showSettingsModal, setShowSettingsModal] = useState(false);
 
@@ -24,10 +27,12 @@ function ListsListBlock(props: ListsListBlockProps): JSX.Element {
         (async () => await updateDoc(doc(db, "lists", props.id), { listKey: listKeyInput }))();
     }, [listKeyInput]);
 
-    const completedTasks = (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).map(item => listData.tasks[item]).filter(item => item.finished).length : "-") : "-") as unknown as string;
-    const totalTasks = (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).length : "-") : "-") as unknown as string;
-    const displayTasksCompleted = completedTasks + " / " + totalTasks;
-    return (listData.tasks &&
+    // useEffect(() => console.log(showSettingsModal), [showSettingsModal]);
+
+    const completedTasks = listData && (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).map(item => listData.tasks[item]).filter(item => item.finished).length : "-") : "-") as unknown as string;
+    const totalTasks = listData && (listData.tasks ? (Object.keys(listData.tasks).length > 0 ? Object.keys(listData.tasks).length : "-") : "-") as unknown as string;
+    const displayTasksCompleted = listData && (completedTasks + " / " + totalTasks)
+    return (listData && listData.tasks &&
         <>
             {showSettingsModal && (<Modal visibiltyHandler={setShowSettingsModal} classNames="settings">
                 <h2>Settings</h2>
@@ -39,9 +44,20 @@ function ListsListBlock(props: ListsListBlockProps): JSX.Element {
                         setListKeyInput(change.target.value)
                     } title={"List Key:" + listKeyInput} /></p>
                 <br />
-                <button className="solid-border walnut-brown-border mid-border wheat-bg">Share</button>
-                <button className="solid-border walnut-brown-border mid-border wheat-bg">Done</button>
+
+                <button className="solid-border walnut-brown-border mid-border beaver-bg" onClick={() => {
+                    setBottomText("Copied List Key and List Code!");
+                    console.log(listData.listKey);
+                    if (listData.listKey === "" || listData.listKey === undefined) navigator.clipboard.writeText("Hey! I use a Google Extention called FinIt to manage my to-do lists, here's the list code for my list titled '" + listData.title + "': \n\n List Code: " + props.id + "\n\n Please check it out :)");
+                    else navigator.clipboard.writeText("Hey! I use a Google Extention called FinIt to manage my to-do lists, here's the list code and list key to access my list titled '" + listData.title + "': \n\n List Code: " + props.id + "\n\n List Key: " + listData.listKey + ". \n\n Please check it out :)");
+                }}>Share</button>
+                <button className="solid-border walnut-brown-border mid-border beaver-bg" onClick={(e) => {
+                    e.stopPropagation();
+                    setShowSettingsModal(false);
+                    setBottomText("");
+                }}>Exit</button>
                 <button className="solid-border walnut-brown-border mid-border beaver-bg" title="Delete List">Delete</button>
+                <br /><br />
             </Modal>)}
             <div className="lists-list-block semi-transparent-white-bg rounded" onClick={(e) =>
                 setCurrentPage(["view-list", props.id])
@@ -52,7 +68,8 @@ function ListsListBlock(props: ListsListBlockProps): JSX.Element {
                         <button className="small" onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            setShowSettingsModal(prev => !prev);
+                            if (!showSettingsModal)
+                                setShowSettingsModal(true);
                             console.log("click");
                         }}>⚙️</button>
                     </span>

@@ -1,6 +1,6 @@
 import React, { FC, useState, useContext, useEffect } from "react";
 import "./AddList.css";
-import { BottomContext } from "../../App/App";
+import { BottomContext, NavigationContext } from "../../App/App";
 import { getDoc, doc, DocumentData, setDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase-config";
 import { listDocument } from "../../../interfacesAndUtil";
@@ -12,19 +12,19 @@ const AddList: FC = (): JSX.Element => {
     const [currentUser] = useAuthState(auth);
 
     const setBottomText = useContext(BottomContext);
+    const { setCurrentPage } = useContext(NavigationContext);
 
     const [showTitleInput, setShowTitleInput] = useState(false);
     const [titleOrCode, setTitleOrCode] = useState("");
     const [password, setPassword] = useState("");
     const [showCreateNewList, setShowCreateNewList] = useState(true);
     const [showListCodeInput, setShowListCodeInput] = useState(false);
-    const [listCode, setListCode] = useState("");
     const [showEnterListCode, setShowEnterListCode] = useState(true);
     const [isDisabled, setIsDisabled] = useState(false);
 
     useEffect(() => {
         if (showCreateNewList && showEnterListCode) {
-            setBottomText(":)");
+            setBottomText("Choose an option :)");
             return;
         }
         if (showEnterListCode) {
@@ -44,7 +44,7 @@ const AddList: FC = (): JSX.Element => {
                         setIsDisabled(true);
                         return;
                     } else {
-                        setBottomText(":)");
+                        setBottomText("");
                     }
                     setIsDisabled(false);
                 })();
@@ -60,9 +60,13 @@ const AddList: FC = (): JSX.Element => {
             setBottomText("Optionally, create a list key if you want to prevent your lists from being easily accessible by anyone.");
         } else {
             setIsDisabled(false);
-            setBottomText(":)");
+            setBottomText("");
         }
     }, [titleOrCode, password]);
+
+    useEffect(() => {
+        return () => setBottomText("");
+    }, []);
 
     const handleInitalButtonClickSetup = ({ target }: any): void => {
         const clickTarget: Element = target;
@@ -87,6 +91,7 @@ const AddList: FC = (): JSX.Element => {
                 id: customAlphabet("abcdefghijklmnopqrstuvwxABCDEFGHIJKLMNOPQRSTUVWXYZ", 20)(),
                 createdAt: date.format(now, "HH:mm"),
                 createdOn: date.format(now, "DD/MM/YYYY"),
+                createdTime: now.getTime(),
                 ...(password.length > 0 && { listKey: password }), //conditionally adding list key if user has entered a list key
                 ownedBy: (currentUser?.email)!,
                 tasks: {},
@@ -95,9 +100,10 @@ const AddList: FC = (): JSX.Element => {
             };
             (async () => {
                 await setDoc(doc(db, "lists", newList.id), (({ id, ...obj }) => obj)(newList));
+                setCurrentPage(["view-list", newList.id]);
             })();
         }
-        //navigate to list page
+
     }
     return (
         <section className="add-list centered">

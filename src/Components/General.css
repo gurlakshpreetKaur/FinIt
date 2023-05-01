@@ -130,6 +130,14 @@ button.small {
     border-style: dashed;
 }
 
+button {
+    transition: 0.5s;
+}
+
+button:not(.not-pointy) {
+    cursor: pointer;
+}
+
 .transparent-bg {
     background-color: transparent !important;
 }
@@ -138,9 +146,15 @@ button.small {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
+button.semi-transparent-white-bg:hover {
+    background-color: white;
+}
+
 .pearl-bg {
     background-color: var(--pearl) !important;
 }
+
+/* button.pearl-bg */
 
 .weird-milk-bg {
     background-color: var(--weird-milk) !important;
@@ -148,6 +162,10 @@ button.small {
 
 .beaver-bg {
     background-color: var(--beaver);
+}
+
+button.beaver-bg:hover {
+    background-color: var(--wheat);
 }
 
 .wheat-bg {

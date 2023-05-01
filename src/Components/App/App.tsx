@@ -45,7 +45,7 @@ const App: FC = (): JSX.Element => {
         <Header />
 
         {currentPage[0] === "main" ? (currentUser ? <ListsList /> : <SignIn />) : currentPage[0] === "add-list" ? <AddList /> : <ViewList id={currentPage[1]} />}
-        <p className="bottom-text">{bottomText}</p>
+        {bottomText.length > 0 && <p className="bottom-text beaver-bg rounded">{bottomText}</p>}
       </NavigationContext.Provider>
       {/* <ListsList /> */}
     </BottomContext.Provider>

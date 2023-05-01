@@ -10,6 +10,7 @@ interface listDocument {
     id: string,
     createdAt: string,
     createdOn: string,
+    createdTime: number,
     listKey?: string,
     ownedBy: string,
     tasks: { [index: string]: taskField },

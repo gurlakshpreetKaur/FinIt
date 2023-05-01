@@ -8,4 +8,17 @@
     border-radius: 17px;
     width: 80%;
     text-align: center;
+    animation: fade-in 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-56%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+    }
 }

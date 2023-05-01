@@ -1,5 +1,5 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { getFirestore, Firestore, QuerySnapshot, DocumentData, Query, onSnapshot, DocumentReference } from "@firebase/firestore";
+import { getFirestore, Firestore, QuerySnapshot, DocumentData, Query, onSnapshot, DocumentReference, getDocs } from "@firebase/firestore";
 import { getAuth, Auth } from "@firebase/auth";
 import { useState, useEffect, SetStateAction } from "react";
 
@@ -61,18 +61,6 @@ const useDocumentsData = <T>(query: Query<DocumentData>): [Array<T>, {}] => {
     return [data, error];
 }
 
-const useIDOfDocuments = (query: Query<DocumentData>): [string[], {}] => {
-    const [listOfIDs, setListOfIDs] = useState<string[]>([]);
-    const [error, setError] = useState({});
-    onSnapshot(query, (lists) => {
-        if (lists.empty) {
-            setError({ code: "no-lists-found", message: "No lists found that match the query." });
-            return;
-        }
-        const newData = lists.docs.map(item => item.id);
-        setListOfIDs(newData);
-    });
-    return [listOfIDs, error];
-}
+export { db, auth };
 
-export { db, auth, useDocumentData, useDocument, useDocumentsData, useIDOfDocuments };
+export { useDocumentData, useDocument, useDocumentsData };

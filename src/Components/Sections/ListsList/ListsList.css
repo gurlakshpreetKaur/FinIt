@@ -1,6 +1,6 @@
 .lists-list {
     overflow-y: auto;
-    max-height: calc(465px - 50px);
+    max-height: calc(465px - 50px - 5.5px);
     margin-top: 5.5px;
 }
 

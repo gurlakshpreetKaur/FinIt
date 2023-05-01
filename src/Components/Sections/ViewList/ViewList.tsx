@@ -1,13 +1,14 @@
 import { arrayUnion, doc } from "firebase/firestore";
 import "./ViewList.css";
 import React, { useState, useContext, useEffect } from "react";
-import { db, useDocumentData } from "../../../firebase-config";
+import { db } from "../../../firebase-config";
 import { listDocument } from "../../../interfacesAndUtil";
 import ListItem from "../../Auxiliaries/ListItem/ListItem";
 import { updateDoc } from "firebase/firestore";
 import { customAlphabet } from "nanoid";
 import { NavigationContext } from "../../App/App";
 import NothingHere from "../../Auxiliaries/NothingHere/NothingHere";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 interface ViewListProps {
     id: string,
@@ -15,7 +16,7 @@ interface ViewListProps {
 
 function ViewList(props: ViewListProps) {
     const { setPageTitle } = useContext(NavigationContext);
-    const [listData] = useDocumentData<listDocument>(doc(db, "lists", props.id));
+    const listData = useDocumentData(doc(db, "lists", props.id))[0] as listDocument;
     const [taskInput, setTaskInput] = useState("");
 
     const sortingSystem = (a: string, b: string): -1 | 1 => {
@@ -35,10 +36,10 @@ function ViewList(props: ViewListProps) {
     }
 
     useEffect(() => {
-        if (listData.title) setPageTitle(listData.title);
+        if (listData) setPageTitle(listData.title);
     }, [listData]);
 
-    return (<section className="view-list">
+    return (listData && <section className="view-list">
 
         {/* <span className="not-pointy">🐨</span> */}
         <span className="not-pointy">
