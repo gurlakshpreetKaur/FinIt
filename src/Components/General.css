@@ -193,3 +193,7 @@ input {
     border: var(--beaver) solid 3px;
     font-family: var(--handwriting);
 }
+
+input:read-only {
+    cursor: not-allowed;
+}

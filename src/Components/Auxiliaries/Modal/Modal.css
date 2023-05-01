@@ -11,6 +11,14 @@
     animation: fade-in 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 
+.modal.fade-out {
+    animation: fade-out 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+.modal.removed {
+    display: none;
+}
+
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -20,5 +28,18 @@
     100% {
         opacity: 1;
         transform: translateX(-50%) translateY(-50%) scale(1);
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%) scale(1);
+
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-56%);
     }
 }
