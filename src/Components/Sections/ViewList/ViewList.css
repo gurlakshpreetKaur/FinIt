@@ -1,7 +1,7 @@
 .view-list {
     padding: 15px;
     overflow-y: auto;
-    max-height: calc(465px - 50px - 30px);
+    max-height: calc(100vh - 50px - 30px);
     /* background-color: var(--wheat); */
 }
 

@@ -107,7 +107,7 @@ function ListsListBlock(props: ListsListBlockProps): JSX.Element {
                 setCurrentPage(["view-list", list.id])
             }>
                 <div className="flex-div">
-                    <h2 title={list.title}>{list.title}</h2>
+                    <h2 title={list.title} className="pointy">{list.title}</h2>
                     <span>
                         <button className="small" onClick={(e) => {
                             e.stopPropagation();

@@ -1,9 +1,9 @@
 body,
 html {
   background-color: var(--pearl);
-  height: 465px;
+  height: 100vh;
   position: relative;
-  width: 300px;
+  /* width: 300px; */
   /* padding: 0px 10px 0px; */
 }
 

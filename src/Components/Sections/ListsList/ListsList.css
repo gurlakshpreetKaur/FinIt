@@ -1,7 +1,9 @@
 .lists-list {
     overflow-y: auto;
-    max-height: calc(465px - 50px - 11px);
-    padding: 5.5px 0px;
+    max-height: calc(100vh - 50px - 20px);
+    padding: 10px 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .lists-list::-webkit-scrollbar {

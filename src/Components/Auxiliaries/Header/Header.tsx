@@ -8,7 +8,7 @@ import { collection, deleteDoc, getDocs, query, where, doc, updateDoc, arrayRemo
 
 const Header: FC = (): JSX.Element => {
     const [currentUser] = useAuthState(auth);
-    const { handleNavigation, addListButtonClassList, currentPage, pageTitle } = useContext(NavigationContext);
+    const { handleNavigation, addListButtonClassList, currentPage, pageTitle, setCurrentPage } = useContext(NavigationContext);
     const setBottomText = useContext(BottomContext);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isModalPermittedToExist, setIsModalPermittedToExist] = useState(false);
@@ -58,7 +58,7 @@ const Header: FC = (): JSX.Element => {
                 {currentUser && <button className={addListButtonClassList + " back-btn centered-horizontal"} onClick={handleNavigation}>
                     {currentPage[0] === "main" ? "+" : "<~"}
                 </button>}
-                <h1 className="centered bold" onClick={() => { }}>{pageTitle}</h1>
+                <h1 className={"centered bold " + (currentPage[0] !== "view-list" ? "pointy" : "")} onClick={() => { currentPage[0] !== "main" && setCurrentPage(["main"]) }}>{pageTitle}</h1>
                 {currentUser && <button className="small user-settings centered-horizontal pearl-bg" onClick={(e) => {
                     e.stopPropagation();
                     if (!isModalPermittedToExist) {
