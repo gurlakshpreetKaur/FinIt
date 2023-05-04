@@ -10,8 +10,7 @@ const SignIn: FC = (): JSX.Element => {
         <button className="beaver-bg walnut-brown-border solid-border mid-border" onClick={async () => {
             const provider = new GoogleAuthProvider();
             try {
-                const result = await signInWithPopup(auth, provider);
-                console.log(result);
+                await signInWithPopup(auth, provider);
                 setBottomText("");
             } catch (e: any) {
                 const ignoredErrors: string[] = ["auth/popup-closed-by-user", "auth/cancelled-popup-request"];

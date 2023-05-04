@@ -9,6 +9,7 @@
     width: 80%;
     text-align: center;
     animation: fade-in 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+    z-index: 2;
 }
 
 .modal.fade-out {
@@ -42,4 +43,13 @@
         opacity: 0;
         transform: translateX(-50%) translateY(-56%);
     }
+}
+
+.modal .cross-btn {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    padding: 0;
+    font-size: 1.1rem;
+    margin: 0;
 }

@@ -22,10 +22,6 @@ const App: FC = (): JSX.Element => {
   const [bottomText, setBottomText] = useState<string>("");
 
   useEffect(() => {
-    console.log(bottomText);
-  }, [bottomText]);
-
-  useEffect(() => {
     setAddListButtonClassList(currentPage[0] === "main" ? "small" : "small walnut-brown-bg");
   }, [currentPage])
 
@@ -33,7 +29,6 @@ const App: FC = (): JSX.Element => {
   const handleNavigation = (): void => {
     const toNavigateTo = currentPage[0] === "main" ? "add-list" : "main";
     setCurrentPage([toNavigateTo]);
-    console.log(toNavigateTo);
     if (toNavigateTo === "main") setPageTitle("FinIt");
     setBottomText("");
   }
@@ -45,7 +40,7 @@ const App: FC = (): JSX.Element => {
         <Header />
 
         {currentPage[0] === "main" ? (currentUser ? <ListsList /> : <SignIn />) : currentPage[0] === "add-list" ? <AddList /> : <ViewList id={currentPage[1]} />}
-        {bottomText.length > 0 && <p className="bottom-text beaver-bg rounded">{bottomText}</p>}
+        {bottomText.length > 0 && <p className="bottom-text weird-milk-bg rounded">{bottomText}</p>}
       </NavigationContext.Provider>
       {/* <ListsList /> */}
     </BottomContext.Provider>

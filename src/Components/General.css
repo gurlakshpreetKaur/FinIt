@@ -9,6 +9,7 @@
     --pretty-green: #7D9D9C;
     --pretty-dark-green: #576F72;
     --walnut-brown: #675D50;
+    --bistre: #492d21;
     --handwriting: 'Gaegu', cursive;
     /* --minimalist-font: 'Jost', sans-serif; */
 }
@@ -110,6 +111,10 @@ button.small {
     border-color: var(--pretty-dark-green);
 }
 
+.bistre-border {
+    border-color: var(--bistre);
+}
+
 .thin-border {
     border-width: 2px;
 }
@@ -168,6 +173,10 @@ button.beaver-bg:hover {
     background-color: var(--wheat);
 }
 
+button.beaver-bg.bistre-border:hover {
+    background-color: var(--walnut-brown);
+}
+
 .wheat-bg {
     background-color: var(--wheat);
 }
@@ -182,6 +191,26 @@ button.beaver-bg:hover {
 
 .walnut-brown-bg {
     background-color: var(--walnut-brown);
+}
+
+button.walnut-brown-bg {
+    /* color: var(--wheat); */
+}
+
+button.walnut-brown-bg:hover {
+    background-color: var(--wheat);
+
+}
+
+button.dangerous {
+    background-color: var(--beaver);
+    border-color: var(--bistre);
+}
+
+button.dangerous:hover {
+
+    background-color: #af3b3b;
+    /* border-color: #492d21; */
 }
 
 input {

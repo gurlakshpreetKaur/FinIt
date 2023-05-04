@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext, useRef } from "react";
 import "./Modal.css";
 import { BottomContext } from "../../App/App";
-import { isVisible } from "@testing-library/user-event/dist/utils";
 
 interface ModalProps extends React.PropsWithChildren {
     isVisible: boolean,
@@ -20,6 +19,7 @@ function Modal(props: ModalProps) {
             setBottomText("");
         });
     }, []);
+
     useEffect(() => {
         if (!props.isVisible) {
             setClassList("fade-out");
@@ -29,14 +29,20 @@ function Modal(props: ModalProps) {
         }
         else setClassList("");
     }, [props.isVisible]);
+
     window.addEventListener("click", (click) => {
         if (elementRef.current === null) return;
         if (click.target !== elementRef.current && !(elementRef.current as Element).contains(click.target as Node)) {
             props.visibiltyHandler(false);
         }
-        console.log(click.target, !((click.target as Element).classList.contains("modal")));
     }, true);
-    return <div className={"modal " + (props.classNames || "") + " " + classList} ref={elementRef}>
+    return <div className={"modal solid-border mid-border pretty-green-border " + (props.classNames || "") + " " + classList} ref={elementRef}>
+        <button className="cross-btn" onClick={() => {
+            props.visibiltyHandler(false);
+            setTimeout(() => {
+                props.existenceHandler(false)
+            }, 1000);
+        }}>x</button>
         {props.children}
     </div>;;
 }

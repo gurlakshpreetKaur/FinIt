@@ -14,7 +14,7 @@ const ListsList = (): JSX.Element => {
     // console.log(NavigationContext.displayName);
     const [currentUser] = useAuthState(auth);
     const [dataToDisplay, setDataToDisplay] = useState<listDocument[]>([]);
-    onSnapshot(query(collection(db, "lists"), where("ownedBy", "==", currentUser?.email)), (lists) => {
+    onSnapshot(query(collection(db, "lists"), where("usedBy", "array-contains", currentUser?.email)), (lists) => {
         if (lists.docChanges.length > 0 || dataToDisplay.length === 0)
             setDataToDisplay(lists.docs.map((item: DocumentData) => ({ id: item.id, ...item.data() })));
     });
@@ -22,7 +22,7 @@ const ListsList = (): JSX.Element => {
 
     return (
         <section className="lists-list">
-            {dataToDisplay.length > 0 ? dataToDisplay.sort((a, b) => a.createdTime < b.createdTime ? 1 : -1).map((item) => <ListsListBlock id={item.id} key={item.id} />) : <NothingHere />}
+            {dataToDisplay.length > 0 ? dataToDisplay.sort((a, b) => a.createdTime < b.createdTime ? 1 : -1).map((item) => <ListsListBlock key={item.id} list={item} />) : <NothingHere />}
         </section>
     )
 }

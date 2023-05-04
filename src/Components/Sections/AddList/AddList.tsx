@@ -1,7 +1,7 @@
 import React, { FC, useState, useContext, useEffect } from "react";
 import "./AddList.css";
 import { BottomContext, NavigationContext } from "../../App/App";
-import { getDoc, doc, DocumentData, setDoc } from "firebase/firestore";
+import { getDoc, doc, DocumentData, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { auth, db } from "../../../firebase-config";
 import { listDocument } from "../../../interfacesAndUtil";
 import date from "date-and-time";
@@ -43,9 +43,13 @@ const AddList: FC = (): JSX.Element => {
                         setBottomText("This list has a list key, please enter the list key");
                         setIsDisabled(true);
                         return;
-                    } else {
-                        setBottomText("");
                     }
+                    if (!currentUser?.email) return;
+                    if (resultData.usedBy.includes(currentUser?.email)) {
+                        setBottomText("You already have access to this list :)");
+                        return;
+                    }
+                    setBottomText("");
                     setIsDisabled(false);
                 })();
             }
@@ -87,6 +91,8 @@ const AddList: FC = (): JSX.Element => {
                 setBottomText("There was an error with your authentication. Please try again.");
                 return;
             }
+            setIsDisabled(true);
+            setBottomText("Processing...");
             const newList: listDocument = {
                 id: customAlphabet("abcdefghijklmnopqrstuvwxABCDEFGHIJKLMNOPQRSTUVWXYZ", 20)(),
                 createdAt: date.format(now, "HH:mm"),
@@ -102,7 +108,22 @@ const AddList: FC = (): JSX.Element => {
                 await setDoc(doc(db, "lists", newList.id), (({ id, ...obj }) => obj)(newList));
                 setCurrentPage(["view-list", newList.id]);
             })();
+            setIsDisabled(false);
+            return;
         }
+        setIsDisabled(true);
+        (async () => {
+            const listData: listDocument = (await getDoc(doc(db, "lists", titleOrCode))).data() as listDocument;
+            const listKey = listData.listKey;
+            if (listKey !== "" && listKey !== undefined && listKey !== null && password !== listKey) {
+                setBottomText("Incorrect list key :(");
+            } else {
+                await updateDoc(doc(db, "lists", titleOrCode), { usedBy: arrayUnion(currentUser?.email) });
+                setCurrentPage(["view-list", titleOrCode]);
+                setIsDisabled(false);
+            }
+
+        })();
 
     }
     return (
