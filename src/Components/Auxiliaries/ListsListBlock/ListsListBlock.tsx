@@ -93,8 +93,8 @@ function ListsListBlock(props: ListsListBlockProps): JSX.Element {
                     <br />
                     <button className="solid-border bistre-border mid-border beaver-bg" onClick={() => {
                         setBottomText("Copied List Key and List Code!");
-                        if (list.listKey === "" || list.listKey === undefined) navigator.clipboard.writeText("Hey! I use a Google Extention called FinIt to manage my to-do lists, here's the list code for my list titled '" + list.title + "': \n\n List Code: " + list.id + "\n\n Please check it out :)");
-                        else navigator.clipboard.writeText("Hey! I use a Google Extention called FinIt to manage my to-do lists, here's the list code and list key to access my list titled '" + list.title + "': \n\n List Code: " + list.id + "\n\n List Key: " + list.listKey + ". \n\n Please check it out :)");
+                        if (list.listKey === "" || list.listKey === undefined) navigator.clipboard.writeText("Hey! I use a Google Extention called FinIt to manage my to-do lists, here's the list code for my list titled '" + list.title + "': \n\n List Code: " + list.id + " \n\n \n\nFinit: https://finit-28be1.web.app \n\nPlease check it out :)");
+                        else navigator.clipboard.writeText("Hey! I use FinIt to manage my to-do lists, here's the list code and list key to access my list titled '" + list.title + "': \n\n List Code: " + list.id + "\n\n List Key: " + list.listKey + " \n\n \n\nFinit: https://finit-28be1.web.app \n\nPlease check it out :)");
                     }}>Share</button>
                     <button className="dangerous solid-border mid-border" title="Delete List" onClick={() => {
                         setShowSettingsModal(false);
