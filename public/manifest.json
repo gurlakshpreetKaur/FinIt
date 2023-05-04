@@ -1,13 +1,12 @@
 {
   "name": "FinIt",
+  "description": "FinIt is a simple to-list manager which allows you to create and share to-do lists easily.",
   "version": "0.0.1",
   "manifest_version": 3,
-  "action": {
-    "default_popup": "index.html"
-  },
-  "permissions": [
-    "identity.email",
-    "identity"
-  ],
-  "content_security_policy": "script-src 'self' 'https://apis.google.com' 'https://www.gstatic.com' 'https://www.googleapis.com' 'https://securetoken.googleapis.com'; object-src 'self'"
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon"
+    }
+  ]
 }
